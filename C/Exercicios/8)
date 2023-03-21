@@ -1,0 +1,98 @@
+/*Uma empresa especializada em pesquisas de mercado foi contratada para coletar
+informações sobre o perfil de consumidores em um supermercado. A empresa
+contratante deseja saber se os entrevistados consomem o produto que ela fabrica.
+A empresa produz manteiga.
+
+O seu programa deverá coletar os dados e fornecer as seguintes informações:
+
+- Idade do entrevistado mais novo que consome manteiga
+- Quantidade de entrevistados casados que não consomem manteiga
+-Média da idade dos entrevistados solteiros */
+
+#include<stdio.h>
+
+//protótipo das funções
+void menu(int *opcao);
+void dados(int *idade, int *estado_civil, int *manteiga, int *opcao);
+void saida(int casados, int idade_total, int entrevistados);
+
+int main()
+{
+	//declarando variáveis
+	int idade, estado_civil, manteiga, opcao = 1;
+	int casados = 0, idade_total = 0, entrevistados = 0;
+	int menorIdade = 100;
+
+	//chama a função menu para mostrar as opções ao usuário
+	menu(&opcao);
+
+	//enquanto a opção for diferente de 2, chama a função dados para coletar os dados dos entrevistados
+	while(opcao != 2)
+	{
+		dados(&idade, &estado_civil, &manteiga, &opcao);
+
+		if (idade < 0) {
+			printf("\nIdade não pode ser negativa!\n");
+			menu(&opcao);
+			dados(&idade, &estado_civil, &manteiga, &opcao);
+		}
+		//se o entrevistado for casado e não consumir manteiga, soma no total de casados que não consomem manteiga
+		else if(estado_civil == 1 && manteiga == 2)
+			casados++;
+		//se o entrevistado for solteiro, soma a sua idade ao total de entrevistados solteiros
+		else if(estado_civil == 2)
+			idade_total += idade;
+
+		if (idade < menorIdade && idade >= 0) {
+			menorIdade = idade;
+		}
+
+		//conta quantos entrevistados foram contados
+		entrevistados++;
+
+		//chama a função menu para mostrar as opções ao usuário
+		menu(&opcao);
+	}
+
+	//chama a função saida para mostrar os resultados
+	saida(casados, idade_total, entrevistados);
+	printf("\nMenor idade: %d\n", menorIdade);
+
+	return 0;
+}
+
+void menu(int *opcao)
+{
+	//solicita a opção desejada ao usuário
+	printf("\n1 - Coletar dados de outro cliente\n");
+	printf("2 - Finalizar programa\n");
+	printf("Opcao: ");
+	scanf("%d", opcao);
+}
+
+void dados(int *idade, int *estado_civil, int *manteiga, int *opcao)
+{
+	//solicita os dados do entrevistado
+	printf("\nQual a idade do entrevistado? ");
+	scanf("%d", idade);
+	printf("\nQual o estado civil do entrevistado?\n");
+	printf("1 - Casado\n");
+	printf("2 - Solteiro\n");
+	printf("\nOpcao: ");
+	scanf("%d", estado_civil);
+	printf("\nO entrevistado consome manteiga?\n");
+	printf("1 - Sim\n");
+	printf("2 - Nao\n");
+	printf("Opcao: ");
+	scanf("%d", manteiga);
+}
+
+void saida(int casados, int idade_total, int entrevistados)
+{
+	//mostra o total de casados que não consomem manteiga
+	printf("\nO total de casados que nao consomem manteiga e: %d\n", casados);
+
+	//mostra a média das idades dos entrevistados solteiros
+	printf("\nA media das idades dos entrevistados solteiros e: %d\n", idade_total/entrevistados);
+}
+
