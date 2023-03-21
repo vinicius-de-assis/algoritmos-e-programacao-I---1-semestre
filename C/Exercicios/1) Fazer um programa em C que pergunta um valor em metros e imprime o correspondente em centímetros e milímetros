@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    float m, cm, mm;
+    printf("digite um valor em m:\n");
+    scanf("%f", &m);
+    cm=m*100;
+    mm=cm*10;
+    printf("medida em m eh %.2f \nEm cm eh %.2f \nEm mm eh %.2f:", m, cm, mm);
+
+    return 0;
+}
