@@ -1,1 +1,2 @@
-Pasta com exercícios feitos na cadeira de Algorítmos e Programação I
+* linguist-vendored
+*.cpp linguist-vendored=false
